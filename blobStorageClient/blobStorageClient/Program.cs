@@ -9,7 +9,7 @@ class Program
 {
     static async Task Main(string[] args)
     {
-        string endpoint = "https://st02022025-secondary.blob.core.windows.net/";
+        string endpoint = "";
         var credential = new DefaultAzureCredential();
         BlobServiceClient blobServiceClient = new BlobServiceClient(new Uri(endpoint), credential);
         var endpointUri = blobServiceClient.Uri;
