@@ -6,7 +6,7 @@ instalar dependencias
 
 ![alt text](image-2.png)
 
-`
+```
 using Azure.Identity;
 using Azure.Storage.Blobs;
 using System;
@@ -36,7 +36,7 @@ class Program
         }
     }
 }
-`
+```
 
 
 
@@ -49,7 +49,7 @@ modificar container properties powershell
 ![alt text](image-1.png)
 
 
-`
+```
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using System;
@@ -85,7 +85,7 @@ class Program
     }
 }
 
-`
+```
 
 crear contenendor 
 ![alt text](image-4.png)
@@ -97,9 +97,9 @@ y adicionar metadata al contenedor
 
 subir desde azcopy la data del sitio estatico usando azcopy
 
-`
+```
 ./azcopy copy "C:\Users\ynova\Desktop\az204-kodekloud\AZ-204\Storage Account - Static Website\*" '<storage_account_sas_token>' --recursive=true
-`
+```
 
 cosmos DB create item in .net
 
@@ -116,7 +116,7 @@ https://github.com/AzureCosmosDB/data-migration-desktop-tool?tab=readme-ov-file#
 ejemplo de configuracion de la herramienta tener encuenta el filepath no esta como en formato windows, tambien es mejor pegarlo en el mismo directorio para que funcione. airports.json fue usado.
 
 
-`
+```
 {
   "Source": "json",
   "Sink": "cosmos-nosql",
@@ -135,9 +135,9 @@ ejemplo de configuracion de la herramienta tener encuenta el filepath no esta co
   }
 }
 
-`
+```
 el formato debe ser algo como un array de json con el attributo id. tambien tener en cuenta las RU's si son muy bajas no sube.
-`
+```
 [
     {
        "id":"00AK",
@@ -156,4 +156,4 @@ el formato debe ser algo como un array de json con el attributo id. tambien tene
         .....
     }
 ]
-`
+```
