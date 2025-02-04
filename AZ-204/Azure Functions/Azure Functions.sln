@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebFuncTable", "WebFuncTable.csproj", "{19B0FDA4-FBD5-5757-DDB6-B26024D232BD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{19B0FDA4-FBD5-5757-DDB6-B26024D232BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19B0FDA4-FBD5-5757-DDB6-B26024D232BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19B0FDA4-FBD5-5757-DDB6-B26024D232BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19B0FDA4-FBD5-5757-DDB6-B26024D232BD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DC40800C-0614-4350-A634-5B753A1DCEDE}
+	EndGlobalSection
+EndGlobal
