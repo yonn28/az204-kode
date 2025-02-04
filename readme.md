@@ -98,7 +98,7 @@ y adicionar metadata al contenedor
 subir desde azcopy la data del sitio estatico usando azcopy
 
 ```
-./azcopy copy "C:\Users\ynova\Desktop\az204-kodekloud\AZ-204\Storage Account - Static Website\*" '<storage_account_sas_token>' --recursive=true
+./azcopy copy "C:\Users\ynova\Desktop\az204-kodekloud\AZ-204\Storage Account - Static Website\*" "storage_account_sas_token" --recursive=true
 ```
 
 cosmos DB create item in .net
