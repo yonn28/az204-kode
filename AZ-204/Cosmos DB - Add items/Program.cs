@@ -7,10 +7,10 @@ class Program
     static async Task Main(string[] args)
     {
 
-        string endpoint = "https://<your-cosmosdb-account>.documents.azure.com:443/";
-        string key = "<your-cosmosdb-account-key>";
-        string databaseName = "<your-database-name>";
-        string collectionName = "<your-container-name>";
+        string endpoint = "";
+        string key = "==";
+        string databaseName = "flightDetails";
+        string collectionName = "airportCodes";
 
         // Initialize Cosmos Client
         CosmosClient client = new CosmosClient(endpoint, key);
@@ -20,6 +20,7 @@ class Program
         // Create a new record for "DXB" airport
         var airportRecord = new 
         {
+            id = Guid.NewGuid().ToString(),
             airport_code = "DXB",
             airport_name = "Dubai International Airport",
             country_code = "UAE"

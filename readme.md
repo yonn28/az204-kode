@@ -95,10 +95,10 @@ y adicionar metadata al contenedor
 ![alt text](image-3.png)
 
 
-subir desde azcopy la data del sitio estatico usando azcopy
+subir la data del sitio estatico usando azcopy, el container por defecto es $web y lo detecta como variable así que para el storage account sas_token usar comilla sencilla para que no trate de reemplazar como variable de powershell o escapar en caso de linux.
 
 ```
-./azcopy copy "C:\Users\ynova\Desktop\az204-kodekloud\AZ-204\Storage Account - Static Website\*" "storage_account_sas_token" --recursive=true
+./azcopy copy <localizacion_archivos> <storage_account_sas_token> --recursive=true
 ```
 
 cosmos DB create item in .net
@@ -113,7 +113,7 @@ https://learn.microsoft.com/es-es/azure/cosmos-db/how-to-migrate-desktop-tool?ta
 https://github.com/AzureCosmosDB/data-migration-desktop-tool?tab=readme-ov-file#tutorial-json-to-cosmos-db-migration
 
 
-ejemplo de configuracion de la herramienta tener encuenta el filepath no esta como en formato windows, tambien es mejor pegarlo en el mismo directorio para que funcione. airports.json fue usado.
+ejemplo de configuracion del archivo 'migrationsettings.json' tener encuenta el filepath no esta como en formato windows, tambien es mejor pegarlo en el mismo directorio para que funcione. airports.json fue usado.
 
 
 ```
@@ -136,7 +136,7 @@ ejemplo de configuracion de la herramienta tener encuenta el filepath no esta co
 }
 
 ```
-el formato debe ser algo como un array de json con el attributo id. tambien tener en cuenta las RU's si son muy bajas no sube.
+el formato debe ser algo como un array de json con el attributo id. tambien tener en cuenta las RU's (request units, se configuran a la creacion de la cuenta de cosmos)  si son muy bajas no sube.
 ```
 [
     {
@@ -157,3 +157,71 @@ el formato debe ser algo como un array de json con el attributo id. tambien tene
     }
 ]
 ```
+
+validacion de carga de datos en cosmosDB
+
+![alt text](image-6.png)
+
+crreeacion de un item nuevo en cosmos
+
+
+![alt text](image-7.png)
+
+
+colocar el endpoint y la key
+
+![alt text](image-8.png)
+
+storage procedures
+
+![alt text](image-9.png)
+
+![alt text](image-10.png)
+
+![alt text](image-11.png)
+
+![alt text](image-12.png)
+
+![alt text](image-13.png)
+
+![alt text](image-14.png)
+
+![alt text](image-15.png)
+
+
+trieggers and user-defined functions
+
+![alt text](image-16.png)
+
+```
+function pretrigger(){
+    var item = getContext().getRequest().getBody();
+    if(!item.country_code){
+        item.country_code="unidentified";
+    }
+
+    item.timestamp = new Date().toISOString();
+
+    getContext().getRequest().setBody(item)
+}
+```
+
+![alt text](image-18.png)
+
+![alt text](image-17.png)
+
+![alt text](image-20.png)
+
+tambien existen los pretriggers
+
+![alt text](image-19.png)
+
+change feed in azure cosmos
+
+![alt text](image-21.png)
+
+![alt text](image-23.png)
+
+![alt text](image-24.png)
+
+![alt text](image-22.png)

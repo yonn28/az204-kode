@@ -6,8 +6,8 @@ class Program
 {
     static async Task Main(string[] args)
     {
-        string endpoint = "https://az204cosmosdb01.documents.azure.com:443/";
-        string key = "CQVjPdqcMPKbByiLu4u664S6HOwyusm9JWvUYeyJhJcqTpMCTH0xuie5dNdVhLLobQruzAEyfgcJACDbsJCUEg==";
+        string endpoint = "";
+        string key = "";
         string databaseName = "flightDetails";
         string collectionName = "airportCodes";
         CosmosClient client = new CosmosClient(endpoint, key);
