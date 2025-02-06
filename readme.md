@@ -1,6 +1,6 @@
 
 
-codigo para listar los contenedores de azure en c#
+# codigo para listar los contenedores de azure en c#
 
 instalar dependencias
 
@@ -100,8 +100,8 @@ subir la data del sitio estatico usando azcopy, el container por defecto es $web
 ```
 ./azcopy copy <localizacion_archivos> <storage_account_sas_token> --recursive=true
 ```
-
-cosmos DB create item in .net
+---
+# cosmos DB create item in .net
 
 ![alt text](image-5.png)
 
@@ -189,7 +189,7 @@ storage procedures
 ![alt text](image-15.png)
 
 
-trieggers and user-defined functions
+## trieggers and user-defined functions
 
 ![alt text](image-16.png)
 
@@ -216,7 +216,7 @@ tambien existen los pretriggers
 
 ![alt text](image-19.png)
 
-change feed in azure cosmos
+change feed in azure cosmos: la idea es ejecutar codigo con cambios en algun documento o item en la bd.
 
 ![alt text](image-21.png)
 
@@ -225,3 +225,348 @@ change feed in azure cosmos
 ![alt text](image-24.png)
 
 ![alt text](image-22.png)
+
+
+# Azure container registries
+
+dotnet --list-runtimes
+mkdir App
+cd App/
+dotnet new webapp -n MyNewWebApp
+cd MyNewWebApp/
+dotnet restore MyNewWebApp.csproj 
+
+cd MyNewWebApp/
+cd Pages/
+vi Index.cshtml
+cat Index.cshtml
+cd ../..
+vi Dockerfile
+
+```
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+WORKDIR /app
+EXPOSE 80
+
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+COPY ["MyNewWebApp/MyNewWebApp.csproj", "MyNewWebApp/"]
+RUN dotnet restore "MyNewWebApp/MyNewWebApp.csproj"
+COPY . .
+WORKDIR "/src/MyNewWebApp"
+RUN dotnet build "MyNewWebApp.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "MyNewWebApp.csproj" -c Release -o /app/publish
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "MyNewWebApp.dll"]
+```
+
+```
+az acr build -r acr204052025 -g rg-registries -t webapp:v1 .
+
+az acr buld -r <registry_name> -g <resource_group> -t <contaniername:TAG> <directory>
+```
+
+---
+# azure container instances
+
+![alt text](image-25.png)
+
+azure container instances
+
+![alt text](image-26.png)
+
+![alt text](image-27.png)
+
+![alt text](image-28.png)
+
+
+azure container instances restart policies y variables de entorno
+
+
+![alt text](image-29.png)
+
+![alt text](image-30.png)
+
+variables de entorno
+
+![alt text](image-31.png)
+
+para la configuaracion de container instance los datos se pueden tomar el contaner registry en la seccion de keys
+
+![alt text](image-32.png)
+
+un ejemplo de comando a usar, para crear una container instance junto con una imagen por defecto se muestra a continuacion
+
+```
+az container create -g rg-container-instance -n ac1-01 \
+  --image acr204052025.azurecr.io/webapp:v1 \
+  --registry-login-server acr204052025.azurecr.io \
+  --registry-username acr204052025 \
+  --registry-password 'xxxx' \
+  --ports 8080 \
+  --ip-address Public \
+  --os-type Linux \
+  --cpu 1 \
+  --memory 2.0
+```
+
+![alt text](image-33.png)
+
+![alt text](image-35.png)
+
+![alt text](image-34.png)
+
+montar file share en container instance
+
+![alt text](image-36.png)
+
+![alt text](image-37.png)
+
+para utilizar un file share utilizar el siguiente archivo yaml tomado de https://learn.microsoft.com/en-us/azure/container-instances/container-instances-volume-azure-files,
+
+importante cambiar la imagen, y el dnslabel con una valor aleatorio.
+
+```
+apiVersion: '2019-12-01'
+location: eastus
+name: file-share-demo
+properties:
+  containers:
+  - name: hellofiles
+    properties:
+      environmentVariables: []
+      image: mcr.microsoft.com/azuredocs/aci-hellofiles
+      ports:
+      - port: 80
+      resources:
+        requests:
+          cpu: 1.0
+          memoryInGB: 1.5
+      volumeMounts:
+      - mountPath: /aci/logs/
+        name: filesharevolume
+  osType: Linux
+  restartPolicy: Always
+  ipAddress:
+    type: Public
+    ports:
+      - port: 80
+    dnsNameLabel: aci-demo
+  volumes:
+  - name: filesharevolume
+    azureFile:
+      sharename: acishare
+      storageAccountName: <Storage account name>
+      storageAccountKey: <Storage account key>
+tags: {}
+type: Microsoft.ContainerInstance/containerGroups
+```
+
+desplegar usando este comando
+
+
+```
+az container create --resource-group myResourceGroup --file deploy-aci.yaml
+```
+---
+# Azure container apps
+
+![alt text](image-38.png)
+
+push the container
+
+
+create resource group
+
+```
+az group create --location westus --resource-group rgcontainerapp01
+```
+create enviroment container app
+
+```
+ az containerapp env create --name myEnvironment --resource-group rgcontainerapp01   --location westus 
+```
+
+create the container app
+
+```
+az containerapp create --name ariportsapi --resource-group rgcontainerapp01 --image acr204052025.azurecr.io/webapp02:v1 --cpu 0.5 --memory 1Gi --environment myEnvironment --ingress 'external' --target-port 8080 --registry-server acr204052025.azurecr.io --registry-username acr204052025 --registry-password 'xxx'
+
+```
+
+testing that api
+
+![alt text](image-39.png)
+
+authentication authorization
+
+![alt text](image-40.png)
+
+![alt text](image-41.png)
+
+![alt text](image-42.png)
+
+![alt text](image-43.png)
+
+![alt text](image-44.png)
+
+![alt text](image-45.png)
+
+![alt text](image-46.png)
+
+despues de las configuraciones anteriores se puede acceder a la api, pero se debe autenticar.
+
+## managing revision and secrets
+
+esta parte es parecido a los deployments slots de las webapp, se puede tener un biding para bases de datos o storages accounts, tambien se puede colocar porcentaje de redireccionamiento de trafico.
+
+![alt text](image-47.png)
+
+los secretos se manejan en esta pestaña
+
+![alt text](image-48.png)
+
+dapr integration
+
+![alt text](image-49.png)
+
+![alt text](image-50.png)
+
+
+What is the purpose of the Distributed Application Runtime (Dapr) integration in Azure Container Apps? -> To provide a programming model for microservices
+
+
+---
+# Microsoft identity Platform
+
+![alt text](image-51.png)
+
+
+![alt text](image-52.png)
+
+creacion de un secret en el app registation, para poder autenticar, ya la grantizacion de que el sp tenga accesos,
+
+![alt text](image-53.png)
+
+![alt text](image-54.png)
+
+![alt text](image-55.png)
+
+![alt text](image-56.png)
+
+generacion de token auth para autenticacion service principal
+
+![alt text](image-57.png)
+
+```
+curl --location 'https://login.microsoftonline.com/4066ac16-42bc-4a44-bb29-a0e8fbf7fbeb/oauth2/v2.0/token' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--header 'Cookie: fpc=AuV0L1SA7kFIg0-TJSsGUdwf5Y4PAQAAAMzFNt8OAAAA; stsservicecookie=estsfd; x-ms-gateway-slice=estsfd' \
+--data-urlencode 'client_id=ca99dcbc-a432-4dd8-ad63-492c1e61dd2a' \
+--data-urlencode 'client_secret=xxx' \
+--data-urlencode 'grant_type=client_credentials' \
+--data-urlencode 'scope=https://graph.microsoft.com/.default'
+```
+
+![alt text](image-58.png)
+
+request para obtener los usuarios del tenant, el ejemplo de solicitud se saco de la pagina de microsoft https://developer.microsoft.com/en-us/graph/graph-explorer
+
+![alt text](image-60.png)
+
+![alt text](image-59.png)
+
+se presentan error por falta de permisos, modificarlos en el app registrations
+
+![alt text](image-61.png)
+
+![alt text](image-62.png)
+
+![alt text](image-63.png)
+
+![alt text](image-64.png)
+
+cambiando los niveles de accesos, a user read all en api permissions, y creando un token nuevo se logra la respuesta
+
+![alt text](image-65.png)
+
+se puede validar el token de sesion desde la pagina de decodificacion de microsoft https://jwt.ms/
+
+![alt text](image-66.png)
+
+conditional access
+
+![alt text](image-67.png)
+
+![alt text](image-68.png)
+
+
+---
+
+# MSAL (microsoft autentication library)
+
+![alt text](image-69.png)
+
+![alt text](image-70.png)
+
+![alt text](image-71.png)
+
+whit debbuging 
+
+![alt text](image-72.png)
+
+```
+using System;
+using System.Threading.Tasks;
+using Microsoft.Identity.Client;
+
+class Program
+{
+    private static string tenantId = "";    
+    private static string clientId = "";    
+    private static string clientSecret = "";  
+    private static string[] scopes = { "https://graph.microsoft.com/.default" }; 
+
+    static async Task Main(string[] args)
+    {
+              IConfidentialClientApplication app = ConfidentialClientApplicationBuilder.Create(clientId)
+            .WithClientSecret(clientSecret)
+            .WithAuthority(new Uri($"https://login.microsoftonline.com/{tenantId}"))
+            .Build();
+
+        try
+        {
+          
+            var result = await app.AcquireTokenForClient(scopes)
+                                  .ExecuteAsync();
+
+ 
+            Console.WriteLine("Access Token:");
+            Console.WriteLine(result.AccessToken);
+        }
+        catch (MsalServiceException ex)
+        {
+            // Handle the exception
+            Console.WriteLine($"Error acquiring token: {ex.Message}");
+        }
+    }
+}
+```
+
+creacion de service principal powershell
+```
+az ad sp create-for-rbac
+```
+
+---
+
+shared access signatures (sas)
+
+![alt text](image-73.png)
+
+![alt text](image-74.png)
