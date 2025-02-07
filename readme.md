@@ -229,19 +229,23 @@ change feed in azure cosmos: la idea es ejecutar codigo con cambios en algun doc
 
 # Azure container registries
 
+```
 dotnet --list-runtimes
 mkdir App
 cd App/
 dotnet new webapp -n MyNewWebApp
 cd MyNewWebApp/
 dotnet restore MyNewWebApp.csproj 
+```
 
+```
 cd MyNewWebApp/
 cd Pages/
 vi Index.cshtml
 cat Index.cshtml
 cd ../..
 vi Dockerfile
+```
 
 ```
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
@@ -565,8 +569,66 @@ az ad sp create-for-rbac
 
 ---
 
-shared access signatures (sas)
+# shared access signatures (sas)
 
 ![alt text](image-73.png)
 
 ![alt text](image-74.png)
+
+![alt text](image-75.png)
+
+![alt text](image-76.png)
+
+arquitecturas de obtener sas tocken
+
+![alt text](image-77.png)
+
+![alt text](image-78.png)
+
+## Stored Access Policies
+
+![alt text](image-79.png)
+
+![alt text](image-80.png)
+
+---
+
+# microsoft graph
+
+![alt text](image-81.png)
+
+![alt text](image-82.png)
+
+![alt text](image-83.png)
+
+![alt text](image-85.png)
+
+![alt text](image-84.png)
+
+![alt text](image-86.png)
+
+habilitar en el service principal de public client flows
+
+![alt text](image-87.png)
+
+![alt text](image-88.png)
+
+# Azure Key vault
+
+![alt text](image-89.png)
+
+![alt text](image-90.png)
+
+# Managed identities
+
+![alt text](image-91.png)
+
+![alt text](image-92.png)
+
+![alt text](image-93.png)
+
+![alt text](image-94.png)
+
+![alt text](image-95.png)
+
+![alt text](image-96.png)
