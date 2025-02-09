@@ -632,3 +632,41 @@ habilitar en el service principal de public client flows
 ![alt text](image-95.png)
 
 ![alt text](image-96.png)
+
+# App Configuration Service
+
+configuracion del applicaciones sin necesidad de redesplegar.
+
+![alt text](image-97.png)
+
+![alt text](image-98.png)
+
+![alt text](image-99.png)
+
+![alt text](image-100.png)
+
+generacion de connection string
+
+![alt text](image-101.png)
+
+generacion de valores en la App configuration
+
+![alt text](image-102.png)
+
+despues de iniciado el proyecto no nececita refrescar auto actualiza los cambios solo es conectarse al servicio.
+
+![alt text](image-103.png)
+
+![alt text](image-104.png)
+
+---
+
+Api Management
+
+adicionar scm a el dominio, el domino incluye la zona
+
+![alt text](image-105.png)
+
+![alt text](image-106.png)
+
+

@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Connect to Azure App Configuration
 builder.Configuration.AddAzureAppConfiguration(options =>
 {
-    options.Connect("Endpoint="")
+    options.Connect("Endpoint")
     .UseFeatureFlags()
            .ConfigureRefresh(refresh =>
            {
