@@ -669,6 +669,38 @@ adicionar scm a el dominio, el domino incluye la zona
 
 ![alt text](image-106.png)
 
+politicas inbount(entrada), outbund(salida), backend(backend): (https://learn.microsoft.com/en-us/azure/api-management/rewrite-uri-policy)
+
+![alt text](image-154.png)
+
+
+```
+<policies>
+    <inbound>
+        <base />
+        <rewrite-uri template="/api/employee" />
+        <set-backend-service id="apim-generated-policy" backend-id="WebApp_employee" />
+    </inbound>
+    <backend>
+        <base />
+    </backend>
+    <outbound>
+        <base />
+    </outbound>
+    <on-error>
+        <base />
+    </on-error>
+</policies>
+
+```
+
+
+![alt text](image-155.png)
+
+![alt text](image-156.png)
+
+![alt text](image-157.png)
+
 ---
 # Event grid
 
@@ -816,3 +848,39 @@ se puede utilizando shared access policies
 
 ![alt text](image-153.png)
 
+
+---
+
+# messaging services
+
+azure queues storage 
+
+![alt text](image-158.png)
+
+![alt text](image-159.png)
+
+![alt text](image-160.png)
+
+![alt text](image-161.png)
+
+# redis cache
+
+![alt text](image-162.png)
+
+![alt text](image-163.png)
+
+
+![alt text](image-164.png)
+
+![alt text](image-165.png)
+
+![alt text](image-166.png)
+
+
+# azure CDN
+
+![alt text](image-167.png)
+
+![alt text](image-168.png)
+
+![alt text](image-169.png)
