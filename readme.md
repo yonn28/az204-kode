@@ -661,7 +661,7 @@ despues de iniciado el proyecto no nececita refrescar auto actualiza los cambios
 
 ---
 
-Api Management
+# Api Management
 
 adicionar scm a el dominio, el domino incluye la zona
 
@@ -669,4 +669,150 @@ adicionar scm a el dominio, el domino incluye la zona
 
 ![alt text](image-106.png)
 
+---
+# Event grid
+
+
+![alt text](image-107.png)
+
+![alt text](image-108.png)
+
+se crea un Event grid a nivel de topico de sistema
+
+![alt text](image-109.png)
+
+event grid handling of delivery errors
+
+![alt text](image-110.png)
+
+
+![alt text](image-111.png)
+
+dar click en crear una subscripcion pero antes crear una logic app
+
+![alt text](image-112.png)
+
+![alt text](image-113.png)
+
+![alt text](image-114.png)
+
+![alt text](image-115.png)
+
+generar la url en la cual la logic app va a ejecutarse.
+
+![alt text](image-116.png)
+
+despues de guardar ya se genera la url del webhook
+
+![alt text](image-117.png)
+
+generar un event subscripcion
+
+![alt text](image-118.png)
+
+![alt text](image-120.png)
+
+pegar la url del webhook que se obtuvo para la logic app
+
+![alt text](image-121.png)
+
+![alt text](image-122.png)
+
+![alt text](image-123.png)
+
+## roles dentro de event grid
+
+![alt text](image-124.png)
+
+permisos necesarios para poder subscribirse a el event grid
+
+![alt text](image-125.png)
+
+las tres maneras de escuchar eventos de event grid
+
+![alt text](image-126.png)
+
+formas de validar subscripciones a enventos
+
+![alt text](image-127.png)
+
+# Event hubs
+
+![alt text](image-128.png)
+
+los casos de uso son para ingestion de grandes volumenes de datos
+
+![alt text](image-129.png)
+
+algunas de sus principales componentes son
+
+![alt text](image-130.png)
+
+event hub capture
+
+![alt text](image-132.png)
+
+capture window
+
+![alt text](image-133.png)
+
+scaling to througput units
+
+![alt text](image-134.png)
+
+change pricing tier
+
+![alt text](image-135.png)
+
+create an event hub
+
+![alt text](image-136.png)
+
+![alt text](image-138.png)
+
+![alt text](image-139.png)
+
+![alt text](image-140.png)
+
+ahora genenerar eventos desde la webapp
+
+![alt text](image-142.png)
+
+seleccionar todas las metricas y crear el diagnostic
+
+![alt text](image-143.png)
+
+generar trafico
+
+![alt text](image-144.png)
+
+desde el event hub ya se pueden visualizar los eventos de la webapp
+
+![alt text](image-145.png)
+
+![alt text](image-146.png)
+
+tambien guarda la data en el storage account
+
+![alt text](image-147.png)
+
+control de acceso a los eventos
+
+![alt text](image-148.png)
+
+![alt text](image-149.png)
+
+autorization
+
+![alt text](image-150.png)
+
+se puede utilizando shared access policies
+
+![alt text](image-151.png)
+
+## event hub .net sdk
+
+![alt text](image-152.png)
+
+![alt text](image-153.png)
 
