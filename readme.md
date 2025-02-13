@@ -113,6 +113,20 @@ https://learn.microsoft.com/es-es/azure/cosmos-db/how-to-migrate-desktop-tool?ta
 https://github.com/AzureCosmosDB/data-migration-desktop-tool?tab=readme-ov-file#tutorial-json-to-cosmos-db-migration
 
 
+descargar el ultimo release de la herramienta dmt
+
+![alt text](image-171.png)
+
+![alt text](image-172.png)
+
+modificar el arhivo migration settings
+
+con el conexion string, y el nombre de la base de datos creada usando el data explorer, y el contenedor
+
+![alt text](image-173.png)
+
+![alt text](image-174.png)
+
 ejemplo de configuracion del archivo 'migrationsettings.json' tener encuenta el filepath no esta como en formato windows, tambien es mejor pegarlo en el mismo directorio para que funcione. airports.json fue usado.
 
 
@@ -136,6 +150,15 @@ ejemplo de configuracion del archivo 'migrationsettings.json' tener encuenta el 
 }
 
 ```
+
+ejecutar el comando ./dmt
+
+![alt text](image-175.png)
+
+importante el archivo json que se va a subir dentro del mismo directorio ( en este caso es el airports.json)
+
+![alt text](image-176.png)
+
 el formato debe ser algo como un array de json con el attributo id. tambien tener en cuenta las RU's (request units, se configuran a la creacion de la cuenta de cosmos)  si son muy bajas no sube.
 ```
 [
@@ -875,6 +898,13 @@ azure queues storage
 ![alt text](image-165.png)
 
 ![alt text](image-166.png)
+
+clientes de redis
+
+https://github.com/qishibo/AnotherRedisDesktopManager
+
+![alt text](image-170.png)
+
 
 
 # azure CDN
